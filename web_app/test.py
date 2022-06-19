@@ -8,5 +8,9 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html', item_name = 'test to see how data can be rendering from here to about.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
