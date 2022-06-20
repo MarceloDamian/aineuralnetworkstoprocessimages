@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Using this library to understand pixels/images
-from PIL import Image as im
+#from PIL import Image as im
 
 # loads the MNIST Dataset
 class MNIST():
@@ -24,6 +24,10 @@ class Softmax():
     def feed(self, inputs):
         pass
 
+class ReLU:
+    def feed(self, inputs):
+        self.output = np.maximum(0, inputs)
+
 class LossFunction():
     pass
 
@@ -36,24 +40,30 @@ if __name__ == '__main__':
     # print("\n")
 
 
-    # Data 
-
+    # Load Data here
     # data = MNIST('./train.csv')
     raw_data = pd.read_csv('./train.csv')
     l = raw_data['label']
     d = raw_data.drop('label', axis = 1)
 
     # print(d.head(3).T) # prints the first 5 rows
-
     # print(l)
 
     # MNIST is a data set of 28x28 images
     # Creates a layer with 784 inputs 
     layer0 = InputLayer(784, 10)
     layer0.feedforward(d)
-    print(layer0.output.shape)
+    # print(layer0.output.shape)
+    
+    # Create CSV file for layer0 output
+    df0 = pd.DataFrame(layer0.output)
+    df0.to_csv('layer0output.csv')
+    
+    # activate layer 0 data
+    layer1 = ReLU()
+    layer1.feed(layer0.output)
 
-    df = pd.DataFrame(layer0.output)
-    df.to_csv('layer0output.csv')
-    # print(layer0.output)
+    # Create CSV file for layer1 output
+    df1 = pd.DataFrame(layer0.output)
+    df1.to_csv('layer1output.csv')
 
