@@ -64,6 +64,6 @@ if __name__ == '__main__':
     layer1.feed(layer0.output)
 
     # Create CSV file for layer1 output
-    df1 = pd.DataFrame(layer0.output)
+    df1 = pd.DataFrame(layer1.output)
     df1.to_csv('layer1output.csv')
 
