@@ -22,7 +22,7 @@ def single_image(data):
     print(layer2.output)
 
     lossfunc = nn.LossFunction()
-    lossfunc.CCE(layer2.output, l[0])
+    lossfunc.CCE(layer2.output, label[0])
     # loss = lossfunc.calc()
     # print(loss)
 
@@ -50,8 +50,8 @@ if __name__ == '__main__':
     label = dflabel.to_numpy()
     pixel = dfrow.to_numpy() # convert row dataframe to numpy array
 
-    # print(pixel)
-    print(label[0])
+    label = label.astype(np.float64)
+    pixel = pixel.astype(np.float64)
 
     # print(row.T.shape)
     # print(row.T)
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     # print(d.head(3).T) # prints the first 5 rows
     # print(l)
 
-    single_image(dfrow)
+    single_image(pixel)
     '''
     MNIST is a data set of 28x28 images 
     So we need a layer with 784 inputs 

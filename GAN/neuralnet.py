@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.metrics import log_loss
 
 # loads the MNIST Dataset
 # class MNIST():
@@ -29,11 +30,14 @@ class ReLU:
 class LossFunction():
     # Categorical cross entropy
     def CCE(self, predicted_value, actual_value):
-        i = len(predicted_value)
-        pvclip = np.clip(predicted_value, 1e-7, 1-1e7)
-        confidences = pvclip[range(i), actual_value]
-        print(confidences)
-        # self.loss = -np.log(confidences)
+        self.loss = -np.log(predicted_value, actual_value)
+        print(self.loss)
+
+        # i = len(predicted_value)
+        # pvclip = np.clip(predicted_value, 1e-7, 1-1e7)
+        # confidences = pvclip[range(i), actual_value]
+        # print(confidences)
+        # # self.loss = -np.log(confidences)
     
     # def calc(self):
     #     lossval = np.mean(self.loss)
