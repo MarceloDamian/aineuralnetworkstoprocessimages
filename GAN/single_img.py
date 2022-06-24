@@ -2,8 +2,6 @@ import neuralnet as nn
 import numpy as np
 import pandas as pd
 
-
-# 
 def single_image(data):
     layer0 = nn.InputLayer(784, 10)
     layer0.feedforward(data)
@@ -52,6 +50,7 @@ if __name__ == '__main__':
 
     label = label.astype(np.float64)
     pixel = pixel.astype(np.float64)
+
 
     # print(row.T.shape)
     # print(row.T)
