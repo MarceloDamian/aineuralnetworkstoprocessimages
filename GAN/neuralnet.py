@@ -12,7 +12,7 @@ from sklearn.metrics import log_loss
 
 class InputLayer():
     def __init__(self, num_inputs, num_neurons):
-        self.weights = 0.01 * np.random.randn(num_inputs, num_neurons) # initializes weights as a inputs x neruons size array with numbers close to 0
+        self.weights = 0.01 * np. random.randn(num_inputs, num_neurons) # initializes weights as a inputs x neruons size array with numbers close to 0
         self.biases = np.zeros((1, num_neurons)) # initalizes biases as 0s
 
     def feedforward(self, inputs):
@@ -27,23 +27,34 @@ class ReLU:
     def feed(self, inputs):
         self.output = np.maximum(0, inputs)
 
-class LossFunction():
+''' Only works for measuring loss for a single image'''
+class SingleLossFunction():
     # Categorical cross entropy
     def CCE(self, predicted_value, actual_value):
-        # print(predicted_value.shape)
-        # print(actual_value.shape)
-        # self.loss = -np.log(predicted_value, actual_value)
-        # print(self.loss)
+        self.loss = -np.sum(actual_value * np.log(predicted_value + 10**-100))
+        print(self.loss)
 
-        i = len(predicted_value)
-        pvclip = np.clip(predicted_value, 1e-7, 1-1e7)
-        confidences = pvclip[range(i), actual_value]
-        print(confidences)
-        # self.loss = -np.log(confidences)
+
+    #     n = len(predicted_value) # the number of inputs
+    #     print(f'This is the number of inputs {n}')
+    #     # for entry in predicted_value:
+    #     # pvclip = np.clip(predicted_value[0], 1e-7, 1-1e7) # try to compensate for infinite loss by clipping values to a low number not 0
+    #     print(predicted_value)
+    #     # print(pvclip)
+    #     # confidences = pvclip[range(n), actual_value]
+    #     # print(f"This is the confidences: {confidences}")
+    #     # self.loss = -np.log(predicted_value, actual_value)
+    #     # print(f'The loss: {self.loss}')
+
+    #     # i = len(predicted_value)
+    #     # pvclip = np.clip(predicted_value, 1e-7, 1-1e7)
+    #     # confidences = pvclip[range(i), actual_value]
+    #     # print(confidences)
+    #     # self.loss = -np.log(confidences)
     
-    # def calc(self):
-    #     lossval = np.mean(self.loss)
-    #     return lossval
+    # # def calc(self):
+    # #     lossval = np.mean(self.loss)
+    # #     return lossval
 
 
 
