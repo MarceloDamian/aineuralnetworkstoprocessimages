@@ -18,6 +18,9 @@ class InputLayer():
     def feedforward(self, inputs):
         self.output = np.dot(inputs, self.weights) + self.biases
 
+    def optimize(self):
+        self.weights
+
 class Softmax():
     def feed(self, inputs):
         ex = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
@@ -40,6 +43,16 @@ class MultiLossFunction():
         self.loss = -np.sum(actual_value * np.log(predicted_value + 10**-100))
         self.loss = self.loss / len(predicted_value)
         print(self.loss)
+
+class Optimizer():
+    def __init__(self, layer0):
+        self.learning_rate = 0.001
+        self.opweight = layer0.weight
+        self.opbias = layer0.bias
+
+    def gradientdescent(loss):
+        pass
+        
 
     #     n = len(predicted_value) # the number of inputs
     #     print(f'This is the number of inputs {n}')
