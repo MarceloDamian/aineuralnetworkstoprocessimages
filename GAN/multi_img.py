@@ -29,7 +29,7 @@ def multi_image(data):
 
     ''' Calculate Loss using the output from layer 2 (predicted value) 
     and the label data for actual value '''
-    lossfunc = nn.LossFunction()
+    lossfunc = nn.MultiLossFunction()
     lossfunc.CCE(layer2.output, label)
 
 if __name__ == '__main__':

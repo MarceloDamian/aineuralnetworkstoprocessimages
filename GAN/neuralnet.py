@@ -33,7 +33,13 @@ class SingleLossFunction():
     def CCE(self, predicted_value, actual_value):
         self.loss = -np.sum(actual_value * np.log(predicted_value + 10**-100))
         print(self.loss)
-
+        
+class MultiLossFunction():
+    # Categorical cross entropy
+    def CCE(self, predicted_value, actual_value):
+        self.loss = -np.sum(actual_value * np.log(predicted_value + 10**-100))
+        self.loss = self.loss / len(predicted_value)
+        print(self.loss)
 
     #     n = len(predicted_value) # the number of inputs
     #     print(f'This is the number of inputs {n}')
