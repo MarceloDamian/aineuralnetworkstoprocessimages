@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import log_loss
+#from sklearn.metrics import log_loss
 
 # loads the MNIST Dataset
 # class MNIST():
