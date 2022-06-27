@@ -3,8 +3,6 @@ import numpy as np
 import pandas as pd
 
 ''' Discriminator model'''
-num=0
-
 def single_image(data):
     
     ''' Creates the input layer with 784 inputs each for
@@ -31,43 +29,14 @@ def single_image(data):
 
     first = f'The predicted values {layer2.output[0]}' # commented out 
     second = f'The actual values {label[0]}'
-
+    
     singlelossfunc = nn.SingleLossFunction()
-    #singlelossfunc.CCE(layer2.output[0], label[0]) # commented out 
+    #singlelossfunc.CCE(layer2.output[0], label[0]) # commented out if statment calls it
 
-    #print ([ord(c) for c in f'{singlelossfunc.CCE(layer2.output[0], label[0])}']) # printed ascii
- 
 
-    if singlelossfunc.CCE(layer2.output[0], label[0]) == 1 :  
+    if singlelossfunc.CCE(layer2.output[0], label[0]) == 1: 
         print (first) #using to debug
         print (second) #using to debug
-        #print(singlelossfunc.CCE(layer2.output[0], label[0])) #using to debug and see loss
-    
-
-    #if singlelossfunc.CCE(layer2.output[0], label[0]) == 1 :       
-    #    print(f'The predicted values {layer2.output[0]}')
-    #    print(f'The actual values {label[0]}')
-    #else:
-    #    print ("\nnot this:  ")
-    #    print(f'The predicted values {layer2.output[0]}')
-    #    print(f'The actual values {label[0]}')
-
-
-
-
-    #print(singlelossfunc.CCE(layer2.output[0], label[0])) ## printed none
-    
-    
-    #s =  singlelossfunc.CCE(layer2.output[0], label[0]) ##tried to assigned string to none
-
-    #if s == "None":
-    #    print ("yes")
-    #print(f'The predicted values {layer2.output[0]}')
-    #print(f'The actual values {label[0]}')
-
-
-
-
 
     # loss = lossfunc.calc()
     # print(loss)
@@ -113,11 +82,13 @@ if __name__ == '__main__':
     for i in range(50) : # added 
         single_image(pixel)
 
-
-    outputp = np.maximum(0, pixel)
     ex = np.exp(pixel - np.max(pixel, axis=1, keepdims=True))
     outputp = ex / np.sum(ex, axis=1, keepdims=True)
+    outputp = np.maximum(0, pixel)
 
+
+
+    #print (f'THE LOSS: {outputp} \n')
 
     '''
     MNIST is a data set of 28x28 images 
