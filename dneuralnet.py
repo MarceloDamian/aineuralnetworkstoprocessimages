@@ -34,7 +34,7 @@ class SingleLossFunction():
         self.loss = -np.sum(actual_value * np.log(predicted_value + 10**-100))
 
         if self.loss < 1 :
-            print(f'\nTHE LOSS: {self.loss}')# commented in
+            print(f'\nTHE LOSS: {self.loss}')
             return 1
         else: 
             return -1

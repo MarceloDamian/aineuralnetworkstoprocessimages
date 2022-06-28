@@ -34,9 +34,9 @@ def single_image(data):
     #singlelossfunc.CCE(layer2.output[0], label[0]) # commented out if statment calls it
 
 
-    if singlelossfunc.CCE(layer2.output[0], label[0]) == 1: 
-        print (first) #using to debug
-        print (second) #using to debug
+    if singlelossfunc.CCE(layer2.output[0], label[0]) == 1: # narrows down scope
+        print (first) 
+        print (second) 
 
     # loss = lossfunc.calc()
     # print(loss)
