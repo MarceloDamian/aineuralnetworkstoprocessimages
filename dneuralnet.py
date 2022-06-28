@@ -36,7 +36,7 @@ class SingleLossFunction():
         if self.loss < 1 :
             print(f'\nTHE LOSS: {self.loss}')# commented in
             return 1
-        else:
+        else: 
             return -1
 
 

@@ -1,7 +1,7 @@
 import dneuralnet as nn
 import numpy as np
 import pandas as pd
-
+ 
 ''' Discriminator model'''
 def single_image(data):
     
