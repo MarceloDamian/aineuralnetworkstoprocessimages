@@ -45,14 +45,14 @@ class MultiLossFunction():
         print(self.loss)
 
 
-class Optimizer():
-    def __init__(self, inputlayer):
-        self.learning_rate = 0.001
-        self.opweights = inputlayer.weights
-        self.opbiases = inputlayer.biases
+# class Optimizer():
+#     def __init__(self, inputlayer):
+#         self.learning_rate = 0.001
+#         self.opweights = inputlayer.weights
+#         self.opbiases = inputlayer.biases
 
-    def gradientdescent(self, loss):
-        self.opweights = -(2/n)*sum()
+#     def gradientdescent(self, loss):
+#         self.opweights = -(2/n)*sum()
         
 
     #     n = len(predicted_value) # the number of inputs
