@@ -57,8 +57,8 @@ if __name__ == '__main__':
     ''' Testing Data set'''
 
     ''' Loading test data'''
-    test_data = pd.read_csv('./test.csv')
-    # test_data = raw_data.drop('label', axis = 1)
+    test_data = pd.read_csv('./train.csv')
+    test_data = raw_data.drop('label', axis = 1)
 
     dftest = pd.DataFrame(test_data)
 
