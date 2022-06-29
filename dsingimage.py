@@ -33,11 +33,10 @@ def single_image(data):
     singlelossfunc = nn.SingleLossFunction()
     #singlelossfunc.CCE(layer2.output[0], label[0]) # commented out if statment calls it
 
-
     if singlelossfunc.CCE(layer2.output[0], label[0]) == 1: # narrows down scope
         print (first) 
         print (second) 
-
+        
     # loss = lossfunc.calc()
     # print(loss)
 
@@ -82,13 +81,9 @@ if __name__ == '__main__':
     for i in range(50) : # added 
         single_image(pixel)
 
-    ex = np.exp(pixel - np.max(pixel, axis=1, keepdims=True))
-    outputp = ex / np.sum(ex, axis=1, keepdims=True)
-    outputp = np.maximum(0, pixel)
-
-
-
-    #print (f'THE LOSS: {outputp} \n')
+#    ex = np.exp(pixel - np.max(pixel, axis=1, keepdims=True))
+#    outputp = ex / np.sum(ex, axis=1, keepdims=True)
+#    outputp = np.maximum(0, pixel)
 
     '''
     MNIST is a data set of 28x28 images 
