@@ -2,8 +2,10 @@ import neuralnet as nn
 import numpy as np
 import pandas as pd
 
-if __name__ == '__main__':
+#if __name__ == '__main__': 
 
+def updateweightsandbiases(arrayofnodes):
+    
     layer0 = nn.InputLayer(784, 10)
     layer1 = nn.ReLU()
     layer2 = nn.Softmax()
@@ -35,9 +37,14 @@ if __name__ == '__main__':
 
     lowest = 10000000
 
-    for epoch in range(1500):
+    arrayofnodes = [] # empty array 
+
+    for epoch in range(1):
         layer0.weights += 0.05 * np.random.randn(784, 10)
         layer0.biases += 0.05 * np.random.randn(1, 10)
+
+        arrayofnodes.append(layer0.weights) # for generatornoise
+        arrayofnodes.append(layer0.biases)  # for generatornoise
 
         layer0.feedforward(pixel)
         layer1.feed(layer0.output)
@@ -55,6 +62,7 @@ if __name__ == '__main__':
             layer0.biases = opbiases.copy()
 
     ''' Testing Data set'''
+    print (arrayofnodes)
 
     ''' Loading test data'''
     test_data = pd.read_csv('./train.csv')
@@ -74,6 +82,7 @@ if __name__ == '__main__':
     dfresults = pd.DataFrame(layer2.output)
     dfresults.to_csv("pred.csv")
     
-    
+    return arrayofnodes # to return array to generator
 
-
+newarray = [] # to test 
+updateweightsandbiases(newarray) # to test
