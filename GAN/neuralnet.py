@@ -44,6 +44,34 @@ class MultiLossFunction():
         self.loss = self.loss / len(predicted_value)
         print(self.loss)
 
+class LeakyRelu():
+
+    def back(self,inputs):
+        if inputs > 0:
+            return inputs
+        else:
+            return 0.05*inputs
+
+class secondoptimizer():
+
+    def sumofsquareresiduals_gradient(self, x, y, b):
+        res = b[0] + b[1] * x - y  # 7 + 8 (4)-8 = 20 , 31 mean = 25.5 , 
+        #print (res)
+        return res.mean(), (res * x).mean()  # .mean() is a method of np.ndarray
+
+    def gradient_descent(self, gradient, x, y, start, learn_rate=0.1, n_iter=50, tolerance=1e-06):
+        vector = start
+        for _ in range(n_iter):
+            diff = -learn_rate * np.array(gradient(x, y, vector)) # alpha * negative gradient vector
+            if np.all(np.abs(diff) <= tolerance): 
+                break
+            vector += diff
+            print (vector)
+        return vector
+
+
+    
+
 
 # class Optimizer():
 #     def __init__(self, inputlayer):
