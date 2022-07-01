@@ -11,5 +11,5 @@
 
 
 ### How to run in your virtual enviornment: 
-> python3 app.py
+> python3 run.py
 
