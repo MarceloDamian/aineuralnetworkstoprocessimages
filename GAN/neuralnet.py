@@ -58,12 +58,14 @@ class LeakyRelu():
 
 class secondoptimizer():
 
-    def sumofsquareresiduals_gradient(self, x, y, b):
-        res = b[0] + b[1] * x - y  # 7 + 8 (4)-8 = 20 , 31 mean = 25.5 , 
+    def sumofsquareresiduals_gradient(self, inputdata, outputdata, b):
+        res = b[0] + b[1] * inputdata - outputdata  # 7 + 8 (4)-8 = 20 , 31 mean = 25.5 , 
         #print (res)
-        return res.mean(), (res * x).mean()  # .mean() is a method of np.ndarray
+        return res.mean(), (res * inputdata).mean()  # .mean() is a method of np.ndarray
 
-    def sgd(self,gradient, x, y, start, learn_rate=0.1, batch_size=1, n_iter=50,tolerance=1e-06, dtype="float64", random_state=None):
+
+
+    def sgd(self,gradient, inputdata, outputdata, start, learn_rate=0.1, batch_size=1, n_iter=50,tolerance=1e-06, dtype="float64", random_state=None):
     
         # Checking if the gradient is callable
         if not callable(gradient):
@@ -72,12 +74,12 @@ class secondoptimizer():
         # Setting up the data type for NumPy arrays
         dtype_ = np.dtype(dtype)
 
-        # Converting x and y to NumPy arrays
-        x, y = np.array(x, dtype=dtype_), np.array(y, dtype=dtype_)
-        n_obs = x.shape[0]
-        if n_obs != y.shape[0]:
-            raise ValueError("'x' and 'y' lengths do not match")
-        xy = np.c_[x.reshape(n_obs, -1), y.reshape(n_obs, 1)]
+        # Converting inputdata and outputdata to NumPy arrays
+        inputdata, outputdata = np.array(inputdata, dtype=dtype_), np.array(outputdata, dtype=dtype_)
+        n_obs = inputdata.shape[0]
+        if n_obs != outputdata.shape[0]:
+            raise ValueError("'inputdata' and 'outputdata' lengths do not match")
+        inputdataoutputdata = np.c_[inputdata.reshape(n_obs, -1), outputdata.reshape(n_obs, 1)]
 
         # Initializing the random number generator
         seed = None if random_state is None else int(random_state)
@@ -109,18 +111,19 @@ class secondoptimizer():
         if np.any(tolerance <= 0):
             raise ValueError("'tolerance' must be greater than zero")
 
+
         # Performing the gradient descent loop
         for _ in range(n_iter):
-            # Shuffle x and y
-            rng.shuffle(xy)  
+            # Shuffle inputdata and outputdata
+            rng.shuffle(inputdataoutputdata)  
 
             # Performing minibatch moves
             for start in range(0, n_obs, batch_size):
                 stop = start + batch_size
-                x_batch, y_batch = xy[start:stop, :-1], xy[start:stop, -1:]
+                inputdata_batch, outputdata_batch = inputdataoutputdata[start:stop, :-1], inputdataoutputdata[start:stop, -1:]
 
                 # Recalculating the difference
-                grad = np.array(gradient(x_batch, y_batch, vector), dtype_)
+                grad = np.array(gradient(inputdata_batch, outputdata_batch, vector), dtype_)
                 diff = -learn_rate * grad
 
                 # Checking if the absolute difference is small enough
