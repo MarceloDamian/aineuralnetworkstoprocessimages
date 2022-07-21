@@ -16,33 +16,33 @@ arrayzero = layer0.firstnodes(1,784)
 #basically the actual row - 2
 #0 - 4131
 
-realarr = layer0.replacewithreal(0)# change later on will be added a for loop to map thru all 42000
-print (realarr)
+realarr = layer0.replacewithrealarray(0)# change later on will be added a for loop to map thru all 42000
+#print (realarr)
 
 layer0.activaterowrelu(realarr)
 layer0.derivativeofrelu(realarr)
 
 
-#realdotprod = layer0.dotoutput(0,realarr) # bias added and realarray
-#print (f"dotproduct of the real first one with added bias {realdotprod}\n")
+#realdotprod = layer0.summedoutput(0,realarr) # bias added and realarray
+#print (f"summedoutput of the real first one with added bias {realdotprod}\n")
  
 
 
-randomarr = layer0.replacerowrand(0)# replacerow later on will be added a for loop to map thru all 42000
-print (randomarr)
+randomarr = layer0.replacerowwithrand(0)# replacerow later on will be added a for loop to map thru all 42000
+print (f' per row {randomarr}')
 
 
-arraywithwe = layer0.replacewithw(1)# weight input
+arraywithwe = layer0.replacerandwithwandbias()#(0.7,-160)# weight input
 print (arraywithwe)
 
 
 
 
-#dotprod = layer0.dotoutput(1,arraywithwe) # bias added and randarraywithwe
-#print (f"\ndotproduct of the first one with added bias {dotprod}")
+#dotprod = layer0.summedoutput(1,arraywithwe) # bias added after implementation # could be wrong
+#print (f"\nsummedoutput of the first one with added bias {dotprod}")
 
-avgdot  = layer0.averagedot(9)
-#print (f"\nAverage dot {avgdot}")
+avgofss  = layer0.averageofsupersumMSE(9)
+print (f"\nAverage of super sum {avgofss}")
 
 
 layer0.activaterowrelu(arraywithwe)
