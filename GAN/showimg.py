@@ -31,5 +31,3 @@ with open('./test.csv', 'r') as csv_file: #open('./test.csv', 'r') as csv_file: 
         #plt.title('Label is {label}'.format(label=label))
         plt.imshow(pixels, cmap='gray')
         plt.show()
-
-

@@ -27,6 +27,7 @@ for i in range (0,42000):
 
     summedproduct+=summed
     print (f"index : {i} summedoutput: {summedproduct}")
+    
 
 data=[supersummed]
 

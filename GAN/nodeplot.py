@@ -36,6 +36,17 @@ color9 = [ninth]
 
 
 listx = [0]
+listx1 = [1] # possibly incorperatte this 
+listx2 = [2]
+listx3 = [3]
+listx4 = [4]
+listx5 = [5]
+listx6 = [6]
+listx7 = [7]
+listx8 = [8]
+listx9 = [9]
+
+
 
 
 zerolist = [34632.40755082285]
@@ -58,57 +69,57 @@ plt.scatter(
 )
 
 plt.scatter(
-    x=listx,
+    x=listx1,
     y=firstlist,
     c=color1,
     alpha = 0.5
 )
 
 plt.scatter(
-    x=listx,
+    x=listx2,
     y=seclist,
     c=color2,
     alpha = 0.5
 
 )
 plt.scatter(
-    x=listx,
+    x=listx3,
     y=thirdlist,
     c=color3,
     alpha = 0.5
 )
 plt.scatter(
-    x=listx,
+    x=listx4,
     y=fourthlist,
     c=color4,
     alpha = 0.5
 )
 plt.scatter(
-    x=listx,
+    x=listx5,
     y=fifthlist,
     c=color5,
     alpha = 0.5
 )
 plt.scatter(
-    x=listx,
+    x=listx6,
     y=sixthlist,
     c=color6,
     alpha = 0.5
 )
 plt.scatter(
-    x=listx,
+    x=listx7,
     y=seventhlist,
     c=color7,
     alpha = 0.5
 )
 plt.scatter(
-    x=listx,
+    x=listx8,
     y=eigthlist,
     c=color8,
     alpha = 0.5
 )
 plt.scatter(
-    x=listx,
+    x=listx9,
     y=ninthlist,
     c=color9,
     alpha = 0.5

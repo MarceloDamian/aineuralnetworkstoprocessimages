@@ -19,7 +19,7 @@ class weightsandbiases():
         return self.biases
 
 
-class firstlayer():
+class Zerolayer():
 
     def firstnodes(self,num_neurons,num_inputs):
         self.nodes = np.random.randint(1,size=(num_neurons, num_inputs)) # not right because it should be reading from train.csv # multiplied by a weight 
@@ -27,7 +27,7 @@ class firstlayer():
         #print (self.nodes)
         return self.nodes
 
-    def replacewithreal(self, rnumber):
+    def replacewithrealarray(self, rnumber): # replaces with one picture from real array 
         
         realarray = self.nodes
         
@@ -49,9 +49,7 @@ class firstlayer():
             #print (self.realnest)
             return self.realnest
 
-
-
-    def replacerowrand(self, rnumber): # for amount of rows. have int as a parameter
+    def replacerowwithrand(self, rnumber): # replace with row from random test . csv 
 
         arraybefore = self.nodes
  
@@ -70,25 +68,62 @@ class firstlayer():
             for i in range(len(self.insidenest)):
                 self.insidenest[i] = pixels[i]
 
-            #print(insidenest)
         return self.insidenest
             
-    
-    def replacewithw(self, weight):#, rnumber): # for amount of rows. have int as a parameter
+    def replacerandwithwandbias(self): #weight, bias):  # replaces rand with rand * weights and + bias 
         
+        #Generates new random file everytime you run it
+        #############################
+        #data1=np.random.uniform(size=(784,10),low = -0.99, high= 0.99) 
+
+        #with open('L1toL2constantweights.csv', 'w', encoding='UTF8', newline='') as func:
+        #    writer = csv.writer(func)
+
+        # write multiple rows
+        #    writer.writerows(data1)
+            ########## this along with sort (reorgconstantweights.csv) to finally enumerate ###
+        ###########################
+
         pslist = self.insidenest
-        self.output = []
         dot = 0
+        weight = []
+        data = []
+        nesteddata = []
 
-        for i in range( len(pslist)):
-            dot = pslist[i] * weight         #times the weight. 
-            self.output.append(dot)
+        header = ['wnode0,wnode1,wnode2,wnode3,wnode4,wnode5,wnode6,wnode7,wnode8.wnode9,delimiter']
+
+        with open('./enumeratedconstantweights.csv', 'r') as csv_file:
+            csvreader = csv.reader(csv_file)
+            next(csvreader) # skips pixelnumbers skips 0 
+
+            for index, row in enumerate(csvreader):
+               if index==0:
+                weight.append(row[1:])
+                #print(weight)
+                break
+    
+            realweight = weight[0]
+
+            for i in range(len(pslist)):
+                for k in range (10): # this is for the hidden layer
+                    dot=int(pslist[i]) * float(realweight[k]) # the starter weight #+ bias         #times the weight. 
+                    data.append(dot)
+                data.append("\n")
+
+            nesteddata = [data]
+               
+        with open('layer1nodedweights.csv', 'w', encoding='UTF8', newline='') as f:
+            writer = csv.writer(f)
             
-        #print (f"self output:   {self.output}") #to debug
-        return self.output
+            # write multiple rows
+            writer.writerow(header)
 
+            # write multiple rows
+            writer.writerows(nesteddata)
+            
+        return nesteddata
 
-    def dotoutput(self,  bias, array): # adds bias 
+    def summedoutputofanyarray(self, bias, array): # adds bias 
   
         storelist = array
         listwithweights = 0
@@ -102,8 +137,7 @@ class firstlayer():
 
         # have it read in nested list and insert the input from there  and find dot product and then add biases
     
-
-    def averagedot (self, neuron):
+    def averageofsupersumMSE (self, neuron):
 
         with open('./sumdp.csv', 'r') as csv_file:
             csvreader = csv.reader(csv_file)
@@ -180,13 +214,96 @@ class firstlayer():
         print (newoutput)
 
 
+class Firstlayer():
+    
+    def sumofeachnodeinfirstlayer (self): 
+        
+        self.allaccumlist= []
+        
+        bias = [] # also has to learn 
+
+        with open('./L0toL1constantbiases.csv', 'r') as csv_file:
+            csvreader = csv.reader(csv_file)
+            next(csvreader) # skips pixelnumbers skips 0 
+            for data in csvreader:
+                bias=data 
+
+            #print (bias)
+
+        with open('./layer0tolayer1nodedweights.csv', 'r') as csv_file:
+            csvreader = csv.reader(csv_file)
+            next(csvreader) # skips pixelnumbers skips 0 
+
+            for data in csvreader: #0,11,22,33,..110 so row times 11
+                for node in range (10):
+                    accum=0
+                    for index in range(784):
+                        accum +=float (data[(11*index)+ node])
+                    self.allaccumlist.append(accum + float (bias[node]))                    
+       
+        return self.allaccumlist
+    
 
     # 784 nodes (1 per pixel) to 1 node(784 pixels) to generate images 
     # 1 node(784 pixels) to 784 nodes(1 per pixel) then compare the dot product to actual real ones
 
+    def RELU(self):
+
+        storelist = self.allaccumlist 
+        self.output = []
+
+        for i in range(10):
+            self.output.append (np.maximum(0, storelist[i]))
+        return self.output
     
-#class Softmax():
-#    def feed(self, inputs):
+
+    def layer1tolayer2connections(self):
+        
+        #self.output is relu output 
+        self.accumulated = []
+        #summedup = 0
+
+        bias = [] # also has to learn 
+
+        with open('./L1toL2constantbiases.csv', 'r') as csv_file:
+            csvreader = csv.reader(csv_file)
+            next(csvreader) # skips pixelnumbers skips 0 
+            for data in csvreader:
+                bias=data 
+
+            print (f'this is the bias:::: {bias}')
+        
+        with open('./L1toL2constantweights.csv', 'r') as csv_file:
+            csvreader = csv.reader(csv_file)
+
+            for l2node, weight in enumerate(csvreader):
+                for increment in range (10):
+                    if l2node==increment:
+                        summedup = 0
+                        for i in range (10):
+                            #print(f'Row{ self.output[i],weight[i], bias[i]}')
+                            summedup += float(self.output[i]) * float (weight[i]) 
+                        self.accumulated.append (summedup + float (bias [increment]))
+                    
+            #print (f'Layer2 nodes: {self.accumulated}')
+
+        return self.accumulated            
+
+    def Softmax(self):
+        
+        reluonsum=self.accumulated
+        e_x = np.exp(reluonsum - np.max(reluonsum))
+        return e_x / e_x.sum()
+
+
+
+
+
+#class Secondlayer():
+    
+  
+        
+        #return np.exp(x) / np.sum(np.exp(x), axis=0)
 
 #        ex = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
 #        self.output = ex / np.sum(ex, axis=1, keepdims=True)
